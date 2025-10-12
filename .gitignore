@@ -1,0 +1,7 @@
+/.next/
+/node_modules/
+/out/
+
+# Documentation
+MIGRATION_SUMMARY.md
+roadmap.md

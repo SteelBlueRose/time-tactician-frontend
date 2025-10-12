@@ -1,0 +1,39 @@
+.pageContainer {
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  user-select: none;
+  margin-top: 64px;
+  overflow: hidden;
+}
+.pageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 64px);
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  user-select: none;
+  margin-top: 64px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e6ecf3 0%, #f8fafc 100%);
+}
+
+.leftPanel {
+  width: 300px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.rightPanel {
+  flex: 1;
+  min-width: 400px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
