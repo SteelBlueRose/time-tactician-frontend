@@ -75,7 +75,7 @@ export const Navigation = () => {
             className={`button-primary ${styles.navButton}`}
             onClick={handleLoginLogout}
           >
-            {isAuthenticated && user ? user.name : "Login"}
+            {isAuthenticated && user ? user.username : "Login"}
           </button>
           {showDropdown && (
             <div className={styles.dropdownMenu} ref={dropdownRef}>
