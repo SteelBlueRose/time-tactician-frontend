@@ -43,8 +43,8 @@ export default function TasksPage() {
         api.get("/tasks?status=incomplete"),
         showCompleted ? api.get("/tasks?status=completed") : Promise.resolve({ data: [] }),
       ]);
-      setTasks(incompleteRes.data);
-      setCompletedTasks(completedRes.data);
+      setTasks(Array.isArray(incompleteRes.data) ? incompleteRes.data : []);
+      setCompletedTasks(Array.isArray(completedRes.data) ? completedRes.data : []);
     } catch (err) {
       console.error("Error loading tasks:", err);
       setError("Failed to load tasks. Are you logged in?");
