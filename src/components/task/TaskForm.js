@@ -184,11 +184,13 @@ const TaskForm = ({
     }
   };
 
-  const formatDate = (date) => {
-    if (!date) return "";
-    const dateObj =
-      date instanceof Date ? date : new Date(Number(date) / 1000000);
-    return format(dateObj, "MM/dd/yyyy");
+  const formatDate = (dateString) => {
+    if (!dateString) return "No deadline";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return "Invalid Date";
+    }
+    return format(date, "MM/dd/yyyy");
   };
 
   const formatDuration = (minutes) => {
