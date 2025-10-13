@@ -27,8 +27,10 @@ const TaskForm = ({
     title: initialData?.title || "",
     description: initialData?.description || "",
     priority: initialData?.priority || "Low",
-    deadline: initialData?.deadline
-      ? new Date(Number(initialData.deadline) / 1000000)
+    deadline: isSubtask
+      ? new Date(parentTask?.deadline || initialData?.deadline || new Date())
+      : initialData?.deadline
+      ? new Date(initialData.deadline)
       : new Date(),
     estimated_time: initialData?.estimated_time || null,
     time_slots: initialData?.time_slots || null,
