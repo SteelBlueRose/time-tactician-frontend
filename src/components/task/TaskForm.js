@@ -329,7 +329,7 @@ const TaskForm = ({
             <p>Parent Task: {parentTask.title}</p>
             <p>Parent Deadline: {formatDate(parentTask.deadline)}</p>
             <p>
-              Subtasks: {parentTask.subtask_ids.length} / {MAX_SUBTASKS}
+              Subtasks: {parentTask.subtask_ids?.length || 0} / {MAX_SUBTASKS}
             </p>
           </div>
         )}
