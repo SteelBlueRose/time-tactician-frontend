@@ -61,7 +61,8 @@ export default function PlannerPage() {
     showLoading("Loading time slots...");
     try {
       const res = await api.get("/time-slots");
-      const slotsWithDuration = res.data.map((slot) => ({
+      const slots = Array.isArray(res.data) ? res.data : [];
+      const slotsWithDuration = slots.map((slot) => ({
         ...slot,
         duration: slot.end_minutes - slot.start_minutes,
       }));
@@ -78,7 +79,7 @@ export default function PlannerPage() {
     showLoading("Loading tasks...");
     try {
       const res = await api.get("/tasks?status=incomplete");
-      setTasks(res.data);
+      setTasks(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Error loading tasks:", error);
       setError("Failed to load tasks");

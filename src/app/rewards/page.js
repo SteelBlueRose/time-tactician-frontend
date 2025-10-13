@@ -39,9 +39,9 @@ export default function RewardsPage() {
       
       if (showCompleted) {
         setRewards([]);
-        setCompletedRewards(rewardsRes.data);
+        setCompletedRewards(Array.isArray(rewardsRes.data) ? rewardsRes.data : []);
       } else {
-        setRewards(rewardsRes.data);
+        setRewards(Array.isArray(rewardsRes.data) ? rewardsRes.data : []);
         setCompletedRewards([]);
       }
       setUserPoints(pointsRes.data.points);

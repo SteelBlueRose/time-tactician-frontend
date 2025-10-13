@@ -38,7 +38,7 @@ export default function TimeSlotsPage() {
     setError(null);
     try {
       const res = await api.get("/time-slots");
-      setTimeSlots(res.data);
+      setTimeSlots(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Error loading time slots:", err);
       setError("Failed to load time slots. Are you logged in?");
