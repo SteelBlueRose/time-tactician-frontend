@@ -57,7 +57,7 @@ const TaskForm = ({
     const newErrors = {};
 
     if (isSubtask && parentTask) {
-      if (parentTask.subtask_ids.length >= MAX_SUBTASKS) {
+      if (parentTask.subtask_ids && parentTask.subtask_ids.length >= MAX_SUBTASKS) {
         newErrors.general = `Maximum number of subtasks (${MAX_SUBTASKS}) reached`;
       }
     }
