@@ -104,7 +104,13 @@ export default function TasksPage() {
       let comparison = 0;
       switch (sortType) {
         case "deadline":
-          comparison = new Date(a.deadline) - new Date(b.deadline);
+          const dateA = new Date(a.deadline);
+          const dateB = new Date(b.deadline);
+          if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+            comparison = 0;
+          } else {
+            comparison = dateA - dateB;
+          }
           break;
         case "estimated_time":
           comparison = a.estimated_time - b.estimated_time;
