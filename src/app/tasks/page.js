@@ -124,8 +124,11 @@ export default function TasksPage() {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return "";
+    if (!dateString) return "No deadline";
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return "No deadline";
+    }
     return date.toLocaleString();
   };
 
