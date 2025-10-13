@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
           api.get('/user/me'),
           api.get('/user/points')
         ]);
+        console.log('User response:', userRes.data);
+        console.log('Points response:', pointsRes.data);
         setUser(userRes.data);
         setPoints(pointsRes.data.points);
         setIsAuthenticated(true);
