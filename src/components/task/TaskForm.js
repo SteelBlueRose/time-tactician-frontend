@@ -117,6 +117,49 @@ const TaskForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
+  const calculateRewardPoints = () => {
+    let points = 10; // Base points
+
+    // Priority
+    switch (taskData.priority) {
+      case "Low":
+        points += 5;
+        break;
+      case "Medium":
+        points += 10;
+        break;
+      case "High":
+        points += 20;
+        break;
+      case "Critical":
+        points += 30;
+        break;
+      default:
+        break;
+    }
+
+    // Estimated time
+    if (taskData.estimated_time) {
+      points += Math.floor(taskData.estimated_time / 30);
+    }
+
+    // Deadline
+    if (taskData.deadline) {
+      const now = new Date();
+      const deadline = new Date(taskData.deadline);
+      const diff = deadline.getTime() - now.getTime();
+      const diffInDays = diff / (1000 * 3600 * 24);
+
+      if (diffInDays <= 1) {
+        points += 10;
+      } else if (diffInDays <= 3) {
+        points += 5;
+      }
+    }
+
+    return points;
+  };
+
   const handleDateSelect = (date) => {
     const newDeadline = new Date(taskData.deadline);
     newDeadline.setFullYear(date.getFullYear());
@@ -138,6 +181,7 @@ const TaskForm = ({
   const handleSave = () => {
     if (validateForm()) {
       const deadlineISO = taskData.deadline.toISOString();
+      const reward_points = calculateRewardPoints();
       if (makeHabit) {
         const formattedRecurrence = {
           frequency: recurrence.frequency,
@@ -152,6 +196,7 @@ const TaskForm = ({
           deadlineISO,
           taskData.estimated_time,
           taskData.time_slots,
+          reward_points,
           parentTask?.id,
           formattedRecurrence
         );
@@ -163,6 +208,7 @@ const TaskForm = ({
           deadlineISO,
           taskData.estimated_time,
           taskData.time_slots,
+          reward_points,
           parentTask?.id
         );
       }
@@ -386,6 +432,8 @@ const TaskForm = ({
           </select>
           <p className={dialogStyles.inputTip}>Priority</p>
         </div>
+
+
 
         <div className={dialogStyles.inputContainer}>
           <div className={dialogStyles.deadlineContainer}>

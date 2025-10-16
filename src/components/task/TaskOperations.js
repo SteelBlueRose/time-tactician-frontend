@@ -25,8 +25,10 @@ const TaskOperations = ({
     priority,
     deadline,
     estimated_time,
-    recurrence = null,
-    parent_task_id = null
+    time_slots,
+    reward_points,
+    parent_task_id = null,
+    recurrence = null
   ) => {
     setLoading(true);
     setError(null);
@@ -37,6 +39,8 @@ const TaskOperations = ({
         priority,
         deadline,
         estimated_time,
+        time_slots,
+        reward_points,
         parent_task_id,
         recurrence,
       });
@@ -53,7 +57,9 @@ const TaskOperations = ({
     description,
     priority,
     deadline,
-    estimated_time
+    estimated_time,
+    time_slots,
+    reward_points
   ) => {
     await handleAddTask(
       title,
@@ -61,7 +67,8 @@ const TaskOperations = ({
       priority,
       deadline,
       estimated_time,
-      null,
+      time_slots,
+      reward_points,
       task.id
     );
     setShowSubtaskForm(false);
@@ -72,7 +79,9 @@ const TaskOperations = ({
     description,
     priority,
     deadline,
-    estimated_time
+    estimated_time,
+    time_slots,
+    reward_points
   ) => {
     setLoading(true);
     setError(null);
@@ -83,6 +92,8 @@ const TaskOperations = ({
         priority,
         deadline,
         estimated_time,
+        time_slots,
+        reward_points,
         state: task.state, // Keep the current state
       });
       onUpdate && onUpdate();
