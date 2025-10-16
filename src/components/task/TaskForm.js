@@ -486,7 +486,7 @@ const TaskForm = ({
               !taskData.title ||
               !taskData.deadline ||
               !taskData.estimated_time ||
-              (isSubtask && parentTask?.subtask_ids.length >= MAX_SUBTASKS)
+              (isSubtask && (parentTask?.subtask_ids?.length || 0) >= MAX_SUBTASKS)
             }
           >
             {initialData ? "Save Changes" : "Add"}
