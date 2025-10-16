@@ -190,7 +190,7 @@ const TaskForm = ({
     if (isNaN(date.getTime())) {
       return "Invalid Date";
     }
-    return format(date, "MM/dd/yyyy");
+    return format(date, "dd/MM/yyyy");
   };
 
   const formatDuration = (minutes) => {
