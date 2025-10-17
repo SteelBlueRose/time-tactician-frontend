@@ -10,6 +10,7 @@ import {
   Play,
   CheckSquare,
 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 import api from "@/utils/api";
 import { ResizablePanelLayout } from "@/components/layout/ResizablePanelLayout";
 import TaskOperations from "@/components/task/TaskOperations";
@@ -23,6 +24,7 @@ import errorStyles from "@/app/styles/components/status/Error.module.css";
 import itemStyles from "@/app/styles/components/layout/ItemLayout.module.css";
 
 export default function TasksPage() {
+  const { fetchUserData } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -94,6 +96,7 @@ export default function TasksPage() {
       
       // Reload all tasks from the server to ensure UI consistency.
       await loadTasks();
+      await fetchUserData();
 
     } catch (err) {
       console.error("Error completing task:", err);
