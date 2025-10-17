@@ -34,6 +34,7 @@ export default function TasksPage() {
   const [showSortDialog, setShowSortDialog] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [startingTaskId, setStartingTaskId] = useState(null);
 
   const loadTasks = useCallback(async () => {
     setLoadingList(true);
@@ -69,12 +70,15 @@ export default function TasksPage() {
 
   const handleStartTask = async (task) => {
     if (!window.confirm("Are you sure you want to start this task?")) return;
+    setStartingTaskId(task.id);
     try {
       await api.post(`/tasks/${task.id}/start`);
       await loadTasks();
     } catch (err) {
       console.error("Error starting task:", err);
       setError("Failed to start task");
+    } finally {
+      setStartingTaskId(null);
     }
   };
 
@@ -161,7 +165,7 @@ export default function TasksPage() {
         </button>
       )}
       {task.state !== "Completed" &&
-        (task.state === "Created" ? (
+        (task.state === "Created" && startingTaskId !== task.id ? (
           <button
             className="icon-action-button success"
             onClick={(e) => { e.stopPropagation(); handleStartTask(task); }}
@@ -170,11 +174,13 @@ export default function TasksPage() {
             <Play size={16} />
           </button>
         ) : (
-          <button
-            className="check-button"
-            onClick={(e) => { e.stopPropagation(); handleCompleteTask(task); }}
-            title="Mark as completed"
-          />
+          task.state !== "Created" && (
+            <button
+              className="check-button"
+              onClick={(e) => { e.stopPropagation(); handleCompleteTask(task); }}
+              title="Mark as completed"
+            />
+          )
         ))}
     </>
   );
