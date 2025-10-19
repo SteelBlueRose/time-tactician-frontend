@@ -91,8 +91,12 @@ function tabuSearchScheduler(scenario, options = {}) {
       return;
     }
     task.segments.sort((a, b) => a.start - b.start);
-    task.scheduled_start_time = task.segments[0].start;
-    task.scheduled_end_time = task.segments[task.segments.length - 1].end;
+    
+    const firstValidSegment = task.segments.find(s => s && s.start);
+    const lastValidSegment = task.segments.slice().reverse().find(s => s && s.end);
+
+    task.scheduled_start_time = firstValidSegment ? firstValidSegment.start : null;
+    task.scheduled_end_time = lastValidSegment ? lastValidSegment.end : null;
   }
 
   function expandRecurringTimeSlots(recurringSlots, startTime, endTime) {
@@ -952,6 +956,17 @@ function tabuSearchScheduler(scenario, options = {}) {
         config.initialSchedule.roundToMinutes
       );
     } else {
+      const currentTime = utils.time.getCurrentTime();
+      startTime =
+        utils.time.roundToMinutes(
+          currentTime,
+          true,
+          config.initialSchedule.roundToMinutes
+        ) +
+        utils.time.minutesToMillis(config.initialSchedule.timeBufferMinutes);
+    }
+
+    if (!startTime || isNaN(startTime)) {
       const currentTime = utils.time.getCurrentTime();
       startTime =
         utils.time.roundToMinutes(

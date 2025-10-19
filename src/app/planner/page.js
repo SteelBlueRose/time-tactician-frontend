@@ -393,10 +393,16 @@ export default function PlannerPage() {
       const scheduleUpdates = optimizedSchedule.tasks
         .map((task) => {
           if (!task.segments || task.segments.length === 0) return null;
-          const newTimeSlots = task.segments.map((segment) => ({
-            start_time: new Date(segment.start).toISOString(),
-            end_time: new Date(segment.end).toISOString(),
-          }));
+          const newTimeSlots = task.segments
+            .filter(segment => segment.start && segment.end && !isNaN(segment.start) && !isNaN(segment.end))
+            .map((segment) => ({
+              start_time: new Date(segment.start).toISOString(),
+              end_time: new Date(segment.end).toISOString(),
+            }));
+
+          if (newTimeSlots.length === 0) {
+            return null;
+          }
 
           return {
             id: task.id,
