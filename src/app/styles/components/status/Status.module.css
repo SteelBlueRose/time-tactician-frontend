@@ -27,6 +27,12 @@
   margin-left: 12px;
 }
 
+
+.stateScheduled {
+  background-color: #cce7f5;
+  color: #0a4f7a;
+}
+
 .stateCreated {
   background-color: #e5e7eb;
   color: #374151;

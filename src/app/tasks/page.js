@@ -309,6 +309,18 @@ export default function TasksPage() {
               <span>Time: {formatDuration(selectedTask.estimated_time)}</span>
             </div>
           </div>
+          {selectedTask.time_slots && selectedTask.time_slots.length > 0 && (
+            <div className={styles.scheduledTimes}>
+              <h3 className={styles.scheduledTimesTitle}>Scheduled Times</h3>
+              <ul className={styles.scheduledTimesList}>
+                {selectedTask.time_slots.map((slot) => (
+                  <li key={slot.id} className={styles.scheduledTimeItem}>
+                    <span>{formatDate(slot.start_time)}</span> - <span>{formatDate(slot.end_time)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <TaskOperations
           task={selectedTask}
