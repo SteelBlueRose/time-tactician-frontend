@@ -74,37 +74,38 @@ const TaskOperations = ({
     setShowSubtaskForm(false);
   };
 
-  const handleUpdateTask = async (
-    title,
-    description,
-    priority,
-    deadline,
-    estimated_time,
-    time_slots,
-    reward_points
-  ) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await api.put(`/tasks/${task.id}`, {
-        title,
-        description,
-        priority,
-        deadline,
-        estimated_time,
-        time_slots,
-        reward_points,
-        state: task.state, // Keep the current state
-      });
-      onUpdate && onUpdate();
-      setShowEditForm(false);
-    } catch (err) {
-      setError(err.response?.data?.msg || "Failed to update task");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+    const handleUpdateTask = async (
+      title,
+      description,
+      priority,
+      deadline,
+      estimated_time,
+      time_slots,
+      reward_points,
+      recurrence = null
+    ) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await api.put(`/tasks/${task.id}`, {
+          title,
+          description,
+          priority,
+          deadline,
+          estimated_time,
+          time_slots,
+          reward_points,
+          recurrence,
+          state: task.state, // Keep the current state
+        });
+        onUpdate && onUpdate();
+        setShowEditForm(false);
+      } catch (err) {
+        setError(err.response?.data?.msg || "Failed to update task");
+      } finally {
+        setLoading(false);
+      }
+    };
   const handleDeleteTask = async () => {
     if (!window.confirm("Are you sure you want to delete this task?")) return;
     setLoading(true);

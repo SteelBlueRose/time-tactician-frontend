@@ -182,13 +182,16 @@ const TaskForm = ({
     if (validateForm()) {
       const deadlineISO = taskData.deadline.toISOString();
       const reward_points = calculateRewardPoints();
-      if (makeHabit) {
-        const formattedRecurrence = {
-          frequency: recurrence.frequency,
-          interval: parseInt(recurrence.interval),
-          specific_days: recurrence.specific_days,
-        };
+      const formattedRecurrence =
+        makeHabit || initialData?.isHabit
+          ? {
+              frequency: recurrence.frequency,
+              interval: parseInt(recurrence.interval),
+              specific_days: recurrence.specific_days,
+            }
+          : null;
 
+      if (initialData) {
         onSubmit(
           taskData.title.trim(),
           taskData.description,
@@ -197,7 +200,6 @@ const TaskForm = ({
           taskData.estimated_time,
           taskData.time_slots,
           reward_points,
-          parentTask?.id,
           formattedRecurrence
         );
       } else {
@@ -209,7 +211,8 @@ const TaskForm = ({
           taskData.estimated_time,
           taskData.time_slots,
           reward_points,
-          parentTask?.id
+          parentTask?.id,
+          formattedRecurrence
         );
       }
       onClose();
