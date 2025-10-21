@@ -56,7 +56,7 @@ const TimeSlotForm = ({
       recurrence: {
         frequency: "Daily",
         interval: "1",
-        specificDays: [],
+        specific_days: [],
       },
     });
     setErrors({});
@@ -92,7 +92,7 @@ const TimeSlotForm = ({
         recurrence: {
           frequency: recurrenceData.frequency,
           interval: recurrenceData.interval?.toString() || "1",
-          specificDays: recurrenceData.specific_days || [],
+          specific_days: recurrenceData.specific_days || [],
         },
       });
     }
@@ -127,8 +127,8 @@ const TimeSlotForm = ({
     }
 
     if (slotData.recurrence.frequency === "Custom") {
-      if (!slotData.recurrence.specificDays?.length) {
-        newErrors.specificDays =
+      if (!slotData.recurrence.specific_days?.length) {
+        newErrors.specific_days =
           "Select at least one day for custom recurrence";
       }
 
@@ -166,7 +166,7 @@ const TimeSlotForm = ({
         recurrence: {
           frequency: slotData.recurrence.frequency,
           interval: parseInt(slotData.recurrence.interval),
-          specific_days: slotData.recurrence.specificDays,
+          specific_days: slotData.recurrence.specific_days,
         },
       };
 

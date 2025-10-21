@@ -50,7 +50,7 @@ const TaskForm = ({
   const [recurrence, setRecurrence] = useState({
     frequency: initialData?.recurrence?.frequency || "Daily",
     interval: initialData?.recurrence?.interval?.toString() || "1",
-    specificDays: initialData?.recurrence?.specific_days || [],
+    specific_days: initialData?.recurrence?.specific_days || [],
   });
 
   const validateForm = () => {
@@ -95,10 +95,10 @@ const TaskForm = ({
       if (
         makeHabit &&
         recurrence.frequency === "Custom" &&
-        recurrence.specificDays.length > 0
+        recurrence.specific_days.length > 0
       ) {
         const deadlineDay = format(taskData.deadline, "EEEE");
-        if (!recurrence.specificDays.includes(deadlineDay)) {
+        if (!recurrence.specific_days.includes(deadlineDay)) {
           newErrors.deadline = "Deadline day must be one of the selected days";
         }
       }
@@ -186,7 +186,7 @@ const TaskForm = ({
         const formattedRecurrence = {
           frequency: recurrence.frequency,
           interval: parseInt(recurrence.interval),
-          specific_days: recurrence.specificDays,
+          specific_days: recurrence.specific_days,
         };
 
         onSubmit(
@@ -318,18 +318,18 @@ const TaskForm = ({
 
   useEffect(() => {
     if (makeHabit && recurrence.frequency === "Custom") {
-      if (!recurrence.specificDays || recurrence.specificDays.length === 0) {
+      if (!recurrence.specific_days || recurrence.specific_days.length === 0) {
         const deadlineDay = format(taskData.deadline, "EEEE");
         setRecurrence((prev) => ({
           ...prev,
-          specificDays: [deadlineDay],
+          specific_days: [deadlineDay],
         }));
         return;
       }
 
       const updatedDeadline = findNextValidDay(
         new Date(),
-        recurrence.specificDays,
+        recurrence.specific_days,
         recurrence.interval
       );
 
@@ -353,7 +353,7 @@ const TaskForm = ({
   }, [
     makeHabit,
     recurrence.frequency,
-    recurrence.specificDays,
+    recurrence.specific_days,
     recurrence.interval,
   ]);
 

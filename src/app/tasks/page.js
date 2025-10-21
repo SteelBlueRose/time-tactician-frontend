@@ -321,6 +321,17 @@ export default function TasksPage() {
               </ul>
             </div>
           )}
+          {selectedTask.recurrence && (
+            <div className={styles.scheduledTimes}>
+              <h3 className={styles.scheduledTimesTitle}>Recurrence Rules</h3>
+              <p className={styles.recurrenceInfo}>
+                Repeats: {selectedTask.recurrence.frequency}
+                {selectedTask.recurrence.specific_days && selectedTask.recurrence.specific_days.length > 0 && 
+                  ` on ${selectedTask.recurrence.specific_days.join(', ')}`
+                }
+              </p>
+            </div>
+          )}
         </div>
         <TaskOperations
           task={selectedTask}

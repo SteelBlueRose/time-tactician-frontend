@@ -11,7 +11,7 @@ const RecurrenceSelect = ({ value, onChange, error }) => {
     onChange({
       ...value,
       frequency,
-      specificDays: frequency === "Custom" ? [] : undefined,
+      specific_days: frequency === "Custom" ? [] : undefined,
       interval: frequency === "Custom" ? "7" : "1",
     });
     setIsCustomInput(false);
@@ -49,7 +49,7 @@ const RecurrenceSelect = ({ value, onChange, error }) => {
   const handleDaysChange = (days) => {
     onChange({
       ...value,
-      specificDays: days,
+      specific_days: days,
     });
   };
 
@@ -106,7 +106,7 @@ const RecurrenceSelect = ({ value, onChange, error }) => {
           )}
 
           <WeekDaySelect
-            selectedDays={value.specificDays || []}
+            selectedDays={value.specific_days || []}
             onChange={handleDaysChange}
             error={error && !error.includes("interval") ? error : undefined}
           />
