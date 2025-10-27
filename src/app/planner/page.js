@@ -417,7 +417,8 @@ export default function PlannerPage() {
           message: `Schedule applied successfully.`,
           type: "success",
         });
-        loadTasks(); // Refresh tasks to show new schedule
+        loadTasks();
+        loadTimeSlots();
       } else {
         setNotification({
           message: "No schedule changes to apply.",
