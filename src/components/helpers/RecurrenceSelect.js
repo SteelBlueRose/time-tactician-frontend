@@ -8,12 +8,16 @@ const RecurrenceSelect = ({ value, onChange, error }) => {
   const [isCustomInput, setIsCustomInput] = useState(false);
 
   const handleFrequencyChange = (frequency) => {
-    onChange({
-      ...value,
-      frequency,
-      specific_days: frequency === "Custom" ? [] : undefined,
-      interval: frequency === "Custom" ? "7" : "1",
-    });
+    const newRecurrence =
+      frequency === "None"
+        ? { frequency: "None", interval: "1", specific_days: [] }
+        : {
+            ...value,
+            frequency,
+            specific_days: frequency === "Custom" ? [] : undefined,
+            interval: frequency === "Custom" ? "7" : "1",
+          };
+    onChange(newRecurrence);
     setIsCustomInput(false);
   };
 
@@ -57,17 +61,18 @@ const RecurrenceSelect = ({ value, onChange, error }) => {
     <div className={styles.recurrenceSection}>
       <div className={dialogStyles.inputContainer}>
         <select
-          value={value.frequency}
+          value={value ? value.frequency : "None"}
           onChange={(e) => handleFrequencyChange(e.target.value)}
           className={dialogStyles.input}
         >
+          <option value="None">No recurrence</option>
           <option value="Daily">Daily</option>
           <option value="Custom">Custom</option>
         </select>
         <p className={dialogStyles.inputTip}>Recurrence Pattern</p>
       </div>
 
-      {value.frequency === "Custom" && (
+      {value && value.frequency === "Custom" && (
         <>
           <div className={dialogStyles.inputContainer}>
             <select

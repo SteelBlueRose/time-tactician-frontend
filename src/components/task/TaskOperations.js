@@ -59,7 +59,8 @@ const TaskOperations = ({
     deadline,
     estimated_time,
     time_slots,
-    reward_points
+    reward_points,
+    recurrence = null
   ) => {
     await handleAddTask(
       title,
@@ -69,7 +70,8 @@ const TaskOperations = ({
       estimated_time,
       time_slots,
       reward_points,
-      task.id
+      task.id,
+      recurrence
     );
     setShowSubtaskForm(false);
   };

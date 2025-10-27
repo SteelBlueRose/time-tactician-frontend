@@ -40,11 +40,14 @@ const TimeSlotOperations = ({
         start_minutes: startMinutes,
         end_minutes: endMinutes,
         slot_type: slotData.slot_type,
-        recurrence: {
-          frequency: slotData.recurrence.frequency,
-          interval: parseInt(slotData.recurrence.interval),
-          specific_days: slotData.recurrence.specific_days || [],
-        },
+        recurrence:
+          slotData.recurrence && slotData.recurrence.frequency !== "None"
+            ? {
+                frequency: slotData.recurrence.frequency,
+                interval: parseInt(slotData.recurrence.interval),
+                specific_days: slotData.recurrence.specific_days || [],
+              }
+            : null,
       });
       onUpdate && onUpdate();
       onCloseForm && onCloseForm();
@@ -74,11 +77,14 @@ const TimeSlotOperations = ({
         start_minutes: startMinutes,
         end_minutes: endMinutes,
         slot_type: slotData.slot_type,
-        recurrence: {
-          frequency: slotData.recurrence.frequency,
-          interval: parseInt(slotData.recurrence.interval),
-          specific_days: slotData.recurrence.specific_days || [],
-        },
+        recurrence:
+          slotData.recurrence && slotData.recurrence.frequency !== "None"
+            ? {
+                frequency: slotData.recurrence.frequency,
+                interval: parseInt(slotData.recurrence.interval),
+                specific_days: slotData.recurrence.specific_days || [],
+              }
+            : null,
       });
       onUpdate && onUpdate();
       setShowEditForm(false);

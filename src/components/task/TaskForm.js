@@ -183,7 +183,7 @@ const TaskForm = ({
       const deadlineISO = taskData.deadline.toISOString();
       const reward_points = calculateRewardPoints();
       const formattedRecurrence =
-        makeHabit || initialData?.isHabit
+        (makeHabit || initialData?.isHabit) && recurrence
           ? {
               frequency: recurrence.frequency,
               interval: parseInt(recurrence.interval),

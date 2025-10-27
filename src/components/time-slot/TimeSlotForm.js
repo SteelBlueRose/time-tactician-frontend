@@ -79,7 +79,7 @@ const TimeSlotForm = ({
       endDate.setHours(Math.floor(endMinutes / 60), endMinutes % 60, 0, 0);
 
       const recurrenceData = initialData.recurrence || {
-        frequency: "Daily",
+        frequency: "None",
         interval: "1",
         specific_days: [],
       };
@@ -87,7 +87,9 @@ const TimeSlotForm = ({
       setSlotData({
         startTime: startDate,
         endTime: endDate,
-        duration: (initialData.end_minutes - initialData.start_minutes).toString(),
+        duration: (
+          initialData.end_minutes - initialData.start_minutes
+        ).toString(),
         slotType: initialData.slot_type,
         recurrence: {
           frequency: recurrenceData.frequency,
@@ -163,11 +165,14 @@ const TimeSlotForm = ({
         start_minutes: startMinutes,
         end_minutes: endMinutes,
         slot_type: slotData.slotType,
-        recurrence: {
-          frequency: slotData.recurrence.frequency,
-          interval: parseInt(slotData.recurrence.interval),
-          specific_days: slotData.recurrence.specific_days,
-        },
+        recurrence:
+          slotData.recurrence.frequency === "None"
+            ? null
+            : {
+                frequency: slotData.recurrence.frequency,
+                interval: parseInt(slotData.recurrence.interval),
+                specific_days: slotData.recurrence.specific_days,
+              },
       };
 
       onSubmit(submitData);
